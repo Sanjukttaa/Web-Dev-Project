@@ -1,0 +1,2494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Eterné — Wedding & Event Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #0d0b09;
+  --bg2: #141210;
+  --bg3: #1c1916;
+  --surface: #201d1a;
+  --surface2: #2a2622;
+  --gold: #c9a96e;
+  --gold2: #e8c98a;
+  --gold3: #f5e6c8;
+  --cream: #f0ead8;
+  --text: #e8e0d0;
+  --text2: #a09080;
+  --text3: #6a5f52;
+  --rose: #c97a8a;
+  --sage: #7a9a8a;
+  --border: rgba(201,169,110,0.15);
+  --border2: rgba(201,169,110,0.08);
+  --radius: 16px;
+  --shadow: 0 8px 40px rgba(0,0,0,0.4);
+  --shadow2: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ──────────────── SCROLLBAR ──────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--gold3); border-radius: 2px; }
+
+/* ──────────────── AUTH PAGE ──────────────── */
+#auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--bg);
+}
+
+.auth-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.auth-bg::before {
+  content:'';
+  position:absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,0.08) 0%, transparent 70%);
+  top: -100px; right: -100px;
+}
+.auth-bg::after {
+  content:'';
+  position:absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,122,138,0.06) 0%, transparent 70%);
+  bottom: -80px; left: -80px;
+}
+
+.auth-orbs {
+  position: absolute;
+  inset: 0;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: floatOrb 8s ease-in-out infinite;
+}
+.orb1 { width:300px;height:300px; background: rgba(201,169,110,0.04); top:10%;left:5%; animation-delay:0s; }
+.orb2 { width:200px;height:200px; background: rgba(201,122,138,0.05); top:60%;right:10%; animation-delay:3s; }
+.orb3 { width:150px;height:150px; background: rgba(122,154,138,0.04); top:30%;right:30%; animation-delay:6s; }
+
+@keyframes floatOrb {
+  0%,100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.1); }
+}
+
+.auth-card {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 480px;
+  margin: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px 44px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,169,110,0.05);
+  animation: fadeInUp 0.6s ease both;
+}
+
+@keyframes fadeInUp {
+  from { opacity:0; transform: translateY(30px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+.auth-logo {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.auth-logo-icon {
+  font-size: 36px;
+  display: block;
+  margin-bottom: 8px;
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+.brand-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  font-weight: 300;
+  color: var(--gold2);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.brand-tagline {
+  font-size: 12px;
+  color: var(--text3);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 0;
+  background: var(--bg3);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 28px;
+}
+.auth-tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text3);
+  border-radius: 8px;
+  transition: all 0.25s;
+  letter-spacing: 0.5px;
+}
+.auth-tab.active {
+  background: var(--gold);
+  color: var(--bg);
+  font-weight: 600;
+}
+
+.form-group { margin-bottom: 18px; }
+.form-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 8px;
+}
+.form-input {
+  width: 100%;
+  padding: 13px 16px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  transition: all 0.2s;
+  outline: none;
+}
+.form-input:focus {
+  border-color: var(--gold);
+  background: var(--bg2);
+  box-shadow: 0 0 0 3px rgba(201,169,110,0.1);
+}
+.form-input::placeholder { color: var(--text3); }
+
+select.form-input option { background: var(--bg3); }
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: var(--bg);
+  border: none;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s;
+  margin-top: 6px;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(201,169,110,0.35);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.auth-error {
+  background: rgba(201,122,138,0.12);
+  border: 1px solid rgba(201,122,138,0.3);
+  color: #e8a0aa;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  display: none;
+}
+
+/* ──────────────── MAIN APP ──────────────── */
+#app { display: none; min-height: 100vh; }
+
+/* ──────────────── SIDEBAR ──────────────── */
+.sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: 260px;
+  background: var(--bg2);
+  border-right: 1px solid var(--border2);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo {
+  padding: 28px 24px 24px;
+  border-bottom: 1px solid var(--border2);
+}
+.sidebar-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--gold2);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+.sidebar-sub {
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 12px;
+  overflow-y: auto;
+}
+
+.nav-section-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: 0 12px;
+  margin-bottom: 8px;
+  margin-top: 20px;
+}
+.nav-section-label:first-child { margin-top: 0; }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text2);
+  transition: all 0.2s;
+  margin-bottom: 2px;
+  user-select: none;
+}
+.nav-item:hover { background: var(--surface); color: var(--text); }
+.nav-item.active {
+  background: linear-gradient(135deg, rgba(201,169,110,0.15), rgba(201,169,110,0.08));
+  color: var(--gold2);
+  font-weight: 500;
+  border: 1px solid rgba(201,169,110,0.15);
+}
+.nav-icon { font-size: 18px; width: 22px; text-align: center; }
+
+.sidebar-footer {
+  padding: 16px 12px;
+  border-top: 1px solid var(--border2);
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.user-info:hover { background: var(--surface2); }
+.user-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--rose));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bg);
+  flex-shrink: 0;
+}
+.user-name { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.2; }
+.user-role { font-size: 11px; color: var(--text3); text-transform: capitalize; }
+.logout-btn {
+  margin-left: auto;
+  font-size: 16px;
+  color: var(--text3);
+  cursor: pointer;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+}
+.logout-btn:hover { color: var(--rose); }
+
+/* ──────────────── MAIN CONTENT ──────────────── */
+.main-content {
+  margin-left: 260px;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.page-header {
+  padding: 32px 36px 20px;
+  border-bottom: 1px solid var(--border2);
+  background: var(--bg2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: 1px;
+}
+.page-subtitle { font-size: 13px; color: var(--text3); margin-top: 2px; }
+
+.page-content { padding: 32px 36px; }
+
+/* ──────────────── VIEW PAGES ──────────────── */
+.view { display: none; animation: fadeIn 0.3s ease; }
+.view.active { display: block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* ──────────────── STAT CARDS ──────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::before {
+  content:'';
+  position:absolute;
+  top:0; right:0;
+  width:60px; height:60px;
+  border-radius: 0 0 0 60px;
+  opacity: 0.3;
+}
+.stat-card.gold::before { background: var(--gold); }
+.stat-card.rose::before { background: var(--rose); }
+.stat-card.sage::before { background: var(--sage); }
+.stat-card.cream::before { background: var(--cream); }
+.stat-card:hover { border-color: var(--border); transform: translateY(-2px); box-shadow: var(--shadow2); }
+
+.stat-icon { font-size: 28px; margin-bottom: 12px; }
+.stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: var(--gold2);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label { font-size: 12px; color: var(--text3); letter-spacing: 1px; text-transform: uppercase; }
+
+/* ──────────────── CARDS & TABLES ──────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--cream);
+}
+.card-body { padding: 24px; }
+
+/* ──────────────── TABLE ──────────────── */
+.table-wrapper { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  text-align: left;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text3);
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border2);
+  white-space: nowrap;
+}
+td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border2);
+  color: var(--text);
+  vertical-align: middle;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(201,169,110,0.03); }
+
+/* ──────────────── BADGES ──────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+}
+.badge-gold { background: rgba(201,169,110,0.15); color: var(--gold2); border: 1px solid rgba(201,169,110,0.2); }
+.badge-green { background: rgba(122,154,138,0.15); color: #9bc4b2; border: 1px solid rgba(122,154,138,0.2); }
+.badge-rose { background: rgba(201,122,138,0.15); color: #e8a0aa; border: 1px solid rgba(201,122,138,0.2); }
+.badge-gray { background: rgba(106,95,82,0.2); color: var(--text2); border: 1px solid rgba(106,95,82,0.2); }
+.badge-cream { background: rgba(240,234,216,0.1); color: var(--cream); border: 1px solid rgba(240,234,216,0.15); }
+
+/* ──────────────── BUTTONS ──────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  border-radius: 9px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: var(--bg);
+  font-weight: 600;
+}
+.btn-gold:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,169,110,0.3); }
+.btn-outline {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border);
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold2); }
+.btn-danger {
+  background: rgba(201,122,138,0.1);
+  color: #e8a0aa;
+  border: 1px solid rgba(201,122,138,0.2);
+}
+.btn-danger:hover { background: rgba(201,122,138,0.2); }
+
+/* ──────────────── FILTERS ──────────────── */
+.filters-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.filter-input {
+  padding: 9px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 9px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+  min-width: 140px;
+}
+.filter-input:focus { border-color: var(--gold); }
+.filter-input::placeholder { color: var(--text3); }
+select.filter-input option { background: var(--bg3); }
+
+/* ──────────────── MODAL ──────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(0.95) translateY(20px);
+  transition: transform 0.25s;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+}
+.modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+.modal-header {
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--cream);
+}
+.modal-close {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--bg3);
+  border: none;
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.modal-close:hover { background: var(--surface2); color: var(--text); }
+.modal-body { padding: 24px 28px; }
+.modal-footer {
+  padding: 16px 28px 24px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-row .form-group { margin-bottom: 0; }
+
+/* ──────────────── EVENT CARDS ──────────────── */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.event-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.event-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.event-card:hover { border-color: var(--border); transform: translateY(-3px); box-shadow: var(--shadow); }
+.event-card:hover::before { opacity: 1; }
+
+.event-card-type {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.event-card-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+.event-card-venue { font-size: 13px; color: var(--text3); margin-bottom: 16px; }
+.event-card-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.event-card-meta span { display: flex; align-items: center; gap: 4px; }
+
+.event-progress-bar {
+  height: 4px;
+  background: var(--bg3);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+.event-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold2));
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+/* ──────────────── BUDGET CHART ──────────────── */
+.budget-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.budget-stat {
+  background: var(--bg3);
+  border-radius: 12px;
+  padding: 16px 20px;
+  text-align: center;
+}
+.budget-stat-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  color: var(--gold2);
+  font-weight: 600;
+}
+.budget-stat-label { font-size: 11px; color: var(--text3); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+/* ──────────────── TOAST ──────────────── */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+.toast {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: toastIn 0.3s ease;
+  pointer-events: all;
+  max-width: 340px;
+}
+.toast.success { border-left: 3px solid var(--sage); }
+.toast.error { border-left: 3px solid var(--rose); }
+@keyframes toastIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
+
+/* ──────────────── EMPTY STATE ──────────────── */
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--text3);
+}
+.empty-icon { font-size: 52px; margin-bottom: 16px; opacity: 0.5; }
+.empty-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--text2); margin-bottom: 8px; }
+.empty-desc { font-size: 13px; line-height: 1.6; }
+
+/* ──────────────── VENDOR GRID ──────────────── */
+.vendors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+.vendor-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: all 0.2s;
+}
+.vendor-card:hover { border-color: var(--border); transform: translateY(-2px); }
+.vendor-type-icon { font-size: 30px; margin-bottom: 12px; }
+.vendor-name { font-size: 16px; font-weight: 600; color: var(--cream); margin-bottom: 4px; }
+.vendor-type { font-size: 11px; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+.vendor-detail { font-size: 12px; color: var(--text3); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.vendor-price { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold2); margin: 12px 0 4px; }
+.vendor-actions { display: flex; gap: 8px; margin-top: 14px; }
+
+/* ──────────────── RATING STARS ──────────────── */
+.stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; }
+
+/* ──────────────── LOADING ──────────────── */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  color: var(--text3);
+  font-size: 14px;
+  gap: 12px;
+}
+.spinner {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ──────────────── RESPONSIVE ──────────────── */
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main-content { margin-left: 0; }
+  .page-header { padding: 20px; }
+  .page-content { padding: 20px; }
+  .form-row { grid-template-columns: 1fr; }
+  .budget-summary { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ──────────────── PROGRESS RING ──────────────── */
+.progress-ring { transform: rotate(-90deg); }
+.progress-ring-bg { fill: none; stroke: var(--bg3); }
+.progress-ring-fill { fill: none; stroke: var(--gold); stroke-linecap: round; transition: stroke-dashoffset 0.5s ease; }
+
+/* ──────────────── COLOR DOT ──────────────── */
+.color-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+/* RSVP bar */
+.rsvp-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; margin-top: 8px; }
+.rsvp-bar-seg { border-radius: 4px; transition: width 0.4s ease; }
+
+</style>
+</head>
+<body>
+
+<!-- ════════════════ AUTH PAGE ════════════════ -->
+<div id="auth-page">
+  <div class="auth-bg">
+    <div class="auth-orbs">
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="orb orb3"></div>
+    </div>
+  </div>
+  <div class="auth-card">
+    <div class="auth-logo">
+      <span class="auth-logo-icon">💍</span>
+      <div class="brand-name">Eterné</div>
+      <div class="brand-tagline">Wedding &amp; Event Planner</div>
+    </div>
+
+    <div class="auth-tabs">
+      <div class="auth-tab active" onclick="switchTab('login')">Sign In</div>
+      <div class="auth-tab" onclick="switchTab('register')">Register</div>
+    </div>
+
+    <div id="auth-error" class="auth-error"></div>
+
+    <!-- LOGIN -->
+    <div id="login-form">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" id="login-email" class="form-input" placeholder="your@email.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" id="login-password" class="form-input" placeholder="Your password"/>
+      </div>
+      <button class="btn-primary" onclick="doLogin()">Sign In →</button>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="register-form" style="display:none">
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input type="text" id="reg-name" class="form-input" placeholder="Your full name"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" id="reg-email" class="form-input" placeholder="your@email.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" id="reg-password" class="form-input" placeholder="Min. 6 characters"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Role</label>
+        <select id="reg-role" class="form-input">
+          <option value="planner">Event Planner</option>
+          <option value="client">Client</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <button class="btn-primary" onclick="doRegister()">Create Account →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ MAIN APP ════════════════ -->
+<div id="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-brand">Eterné</div>
+      <div class="sidebar-sub">Planning Suite</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <div class="nav-item active" data-view="dashboard" onclick="switchView('dashboard',this)">
+        <span class="nav-icon">✦</span> Dashboard
+      </div>
+
+      <div class="nav-section-label">Planning</div>
+      <div class="nav-item" data-view="events" onclick="switchView('events',this)">
+        <span class="nav-icon">📅</span> Events
+      </div>
+      <div class="nav-item" data-view="guests" onclick="switchView('guests',this)">
+        <span class="nav-icon">👥</span> Guest List
+      </div>
+      <div class="nav-item" data-view="vendors" onclick="switchView('vendors',this)">
+        <span class="nav-icon">🏢</span> Vendors
+      </div>
+      <div class="nav-item" data-view="checklist" onclick="switchView('checklist',this)">
+        <span class="nav-icon">✅</span> Checklist
+      </div>
+      <div class="nav-item" data-view="budget" onclick="switchView('budget',this)">
+        <span class="nav-icon">💰</span> Budget
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="user-avatar" id="sidebar-avatar">U</div>
+        <div>
+          <div class="user-name" id="sidebar-name">Loading...</div>
+          <div class="user-role" id="sidebar-role">planner</div>
+        </div>
+        <button class="logout-btn" onclick="doLogout()" title="Logout">⏻</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- ── DASHBOARD ── -->
+    <div id="view-dashboard" class="view active">
+      <div class="page-header">
+        <div>
+          <div class="page-title" id="dash-greeting">Good morning ✦</div>
+          <div class="page-subtitle">Here's your planning overview</div>
+        </div>
+        <button class="btn btn-gold" onclick="switchView('events'); document.querySelector('[data-view=events]').click(); openEventModal()">
+          ✦ New Event
+        </button>
+      </div>
+      <div class="page-content">
+        <div class="stats-grid" id="dash-stats">
+          <div class="stat-card gold">
+            <div class="stat-icon">📅</div>
+            <div class="stat-value" id="stat-events">—</div>
+            <div class="stat-label">Total Events</div>
+          </div>
+          <div class="stat-card rose">
+            <div class="stat-icon">👥</div>
+            <div class="stat-value" id="stat-guests">—</div>
+            <div class="stat-label">Total Guests</div>
+          </div>
+          <div class="stat-card sage">
+            <div class="stat-icon">🏢</div>
+            <div class="stat-value" id="stat-vendors">—</div>
+            <div class="stat-label">Vendors Booked</div>
+          </div>
+          <div class="stat-card cream">
+            <div class="stat-icon">💰</div>
+            <div class="stat-value" id="stat-budget">—</div>
+            <div class="stat-label">Budget Tracked</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Upcoming Events</span>
+            <button class="btn btn-outline btn-sm" onclick="document.querySelector('[data-view=events]').click()">View All</button>
+          </div>
+          <div id="dash-events-list">
+            <div class="loading"><div class="spinner"></div> Loading events...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── EVENTS ── -->
+    <div id="view-events" class="view">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Events</div>
+          <div class="page-subtitle">Manage all your weddings &amp; events</div>
+        </div>
+        <button class="btn btn-gold" onclick="openEventModal()">＋ New Event</button>
+      </div>
+      <div class="page-content">
+        <div id="events-grid" class="events-grid">
+          <div class="loading"><div class="spinner"></div> Loading...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GUESTS ── -->
+    <div id="view-guests" class="view">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Guest List</div>
+          <div class="page-subtitle">Manage RSVPs and seating</div>
+        </div>
+        <button class="btn btn-gold" onclick="openGuestModal()">＋ Add Guest</button>
+      </div>
+      <div class="page-content">
+        <div class="filters-row">
+          <select class="filter-input" id="guest-event-filter" onchange="loadGuests()">
+            <option value="">All Events</option>
+          </select>
+          <select class="filter-input" id="guest-rsvp-filter" onchange="loadGuests()">
+            <option value="">All RSVPs</option>
+            <option value="confirmed">✅ Confirmed</option>
+            <option value="pending">⏳ Pending</option>
+            <option value="declined">❌ Declined</option>
+            <option value="maybe">🤔 Maybe</option>
+          </select>
+          <input type="text" class="filter-input" id="guest-search" placeholder="🔍 Search guests..." oninput="loadGuests()"/>
+        </div>
+        <div class="card">
+          <div class="card-body" style="padding:0">
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th><th>Event</th><th>RSVP</th><th>Email</th><th>Phone</th><th>Table</th><th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="guests-tbody">
+                  <tr><td colspan="7"><div class="loading"><div class="spinner"></div> Loading...</div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── VENDORS ── -->
+    <div id="view-vendors" class="view">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Vendors</div>
+          <div class="page-subtitle">Find and manage your event vendors</div>
+        </div>
+        <button class="btn btn-gold" onclick="openVendorModal()">＋ Add Vendor</button>
+      </div>
+      <div class="page-content">
+        <div class="filters-row">
+          <select class="filter-input" id="vendor-type-filter" onchange="loadVendors()">
+            <option value="">All Types</option>
+            <option value="catering">🍽️ Catering</option>
+            <option value="photography">📷 Photography</option>
+            <option value="music">🎵 Music</option>
+            <option value="florist">💐 Florist</option>
+            <option value="venue">🏛️ Venue</option>
+            <option value="cake">🎂 Cake</option>
+            <option value="transport">🚗 Transport</option>
+            <option value="decor">✨ Decor</option>
+            <option value="other">📦 Other</option>
+          </select>
+          <input type="text" class="filter-input" id="vendor-city-filter" placeholder="📍 City..." oninput="loadVendors()"/>
+          <input type="number" class="filter-input" id="vendor-min-price" placeholder="Min ₹" oninput="loadVendors()" style="max-width:110px"/>
+          <input type="number" class="filter-input" id="vendor-max-price" placeholder="Max ₹" oninput="loadVendors()" style="max-width:110px"/>
+          <select class="filter-input" id="vendor-status-filter" onchange="loadVendors()">
+            <option value="">All Status</option>
+            <option value="contacted">Contacted</option>
+            <option value="booked">Booked</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <input type="text" class="filter-input" id="vendor-search" placeholder="🔍 Search..." oninput="loadVendors()"/>
+        </div>
+        <div id="vendors-grid" class="vendors-grid">
+          <div class="loading"><div class="spinner"></div> Loading...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CHECKLIST ── -->
+    <div id="view-checklist" class="view">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Checklist</div>
+          <div class="page-subtitle">Track tasks for each event</div>
+        </div>
+        <button class="btn btn-gold" onclick="openChecklistModal()">＋ Add Task</button>
+      </div>
+      <div class="page-content">
+        <div class="filters-row">
+          <select class="filter-input" id="checklist-event-filter" onchange="loadChecklists()">
+            <option value="">All Events</option>
+          </select>
+          <select class="filter-input" id="checklist-status-filter" onchange="loadChecklists()">
+            <option value="">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+          </select>
+          <input type="text" class="filter-input" id="checklist-search" placeholder="🔍 Search tasks..." oninput="loadChecklists()"/>
+        </div>
+        <div class="card">
+          <div class="card-body" style="padding:0">
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr><th>Task</th><th>Event</th><th>Due</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="checklist-tbody">
+                  <tr><td colspan="5"><div class="loading"><div class="spinner"></div> Loading tasks...</div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BUDGET ── -->
+    <div id="view-budget" class="view">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Budget Tracker</div>
+          <div class="page-subtitle">Track estimated vs actual spending</div>
+        </div>
+        <button class="btn btn-gold" onclick="openBudgetModal()">＋ Add Item</button>
+      </div>
+      <div class="page-content">
+        <div class="filters-row">
+          <select class="filter-input" id="budget-event-filter" onchange="loadBudget()">
+            <option value="">Select Event</option>
+          </select>
+        </div>
+        <div class="budget-summary" id="budget-summary">
+          <div class="budget-stat">
+            <div class="budget-stat-val" id="bstat-total">₹0</div>
+            <div class="budget-stat-label">Total Budget</div>
+          </div>
+          <div class="budget-stat">
+            <div class="budget-stat-val" id="bstat-spent">₹0</div>
+            <div class="budget-stat-label">Actual Spent</div>
+          </div>
+          <div class="budget-stat">
+            <div class="budget-stat-val" id="bstat-remaining">₹0</div>
+            <div class="budget-stat-label">Remaining</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body" style="padding:0">
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr><th>Category</th><th>Description</th><th>Estimated</th><th>Actual</th><th>Status</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="budget-tbody">
+                  <tr><td colspan="6"><div class="empty-state"><div class="empty-icon">💰</div><div class="empty-title">Select an event</div><div class="empty-desc">Choose an event to see budget items</div></div></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ════════════════ MODALS ════════════════ -->
+
+<!-- Event Modal -->
+<div class="modal-overlay" id="event-modal-overlay" onclick="closeModal('event-modal-overlay')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title" id="event-modal-title">New Event</div>
+      <button class="modal-close" onclick="closeModal('event-modal-overlay')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Event Title *</label>
+          <input type="text" id="ev-title" class="form-input" placeholder="Sarah & John's Wedding"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type</label>
+          <select id="ev-type" class="form-input">
+            <option value="wedding">💍 Wedding</option>
+            <option value="birthday">🎂 Birthday</option>
+            <option value="corporate">💼 Corporate</option>
+            <option value="anniversary">💕 Anniversary</option>
+            <option value="other">📌 Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Date *</label>
+          <input type="date" id="ev-date" class="form-input"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">City *</label>
+          <input type="text" id="ev-city" class="form-input" placeholder="Mumbai"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Venue *</label>
+        <input type="text" id="ev-venue" class="form-input" placeholder="Grand Ballroom, Taj Hotel"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Budget (₹)</label>
+          <input type="number" id="ev-budget" class="form-input" placeholder="500000"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Expected Guests</label>
+          <input type="number" id="ev-guests" class="form-input" placeholder="150"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select id="ev-status" class="form-input">
+          <option value="planning">Planning</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea id="ev-notes" class="form-input" rows="3" placeholder="Any special notes..."></textarea>
+      </div>
+      <input type="hidden" id="ev-id"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('event-modal-overlay')">Cancel</button>
+      <button class="btn btn-gold" onclick="saveEvent()">Save Event</button>
+    </div>
+  </div>
+</div>
+
+<!-- Guest Modal -->
+<div class="modal-overlay" id="guest-modal-overlay" onclick="closeModal('guest-modal-overlay')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title" id="guest-modal-title">Add Guest</div>
+      <button class="modal-close" onclick="closeModal('guest-modal-overlay')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Name *</label>
+          <input type="text" id="g-name" class="form-input" placeholder="Guest name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Event *</label>
+          <select id="g-event" class="form-input"></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" id="g-email" class="form-input" placeholder="guest@email.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="tel" id="g-phone" class="form-input" placeholder="+91 9876543210"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">RSVP Status</label>
+          <select id="g-rsvp" class="form-input">
+            <option value="pending">⏳ Pending</option>
+            <option value="confirmed">✅ Confirmed</option>
+            <option value="declined">❌ Declined</option>
+            <option value="maybe">🤔 Maybe</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Table No.</label>
+          <input type="text" id="g-table" class="form-input" placeholder="Table 5"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Dietary Requirements</label>
+        <input type="text" id="g-dietary" class="form-input" placeholder="Vegetarian, nut-free..."/>
+      </div>
+      <input type="hidden" id="g-id"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('guest-modal-overlay')">Cancel</button>
+      <button class="btn btn-gold" onclick="saveGuest()">Save Guest</button>
+    </div>
+  </div>
+</div>
+
+<!-- Vendor Modal -->
+<div class="modal-overlay" id="vendor-modal-overlay" onclick="closeModal('vendor-modal-overlay')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title" id="vendor-modal-title">Add Vendor</div>
+      <button class="modal-close" onclick="closeModal('vendor-modal-overlay')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Vendor Name *</label>
+          <input type="text" id="v-name" class="form-input" placeholder="Vendor name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type *</label>
+          <select id="v-type" class="form-input">
+            <option value="catering">🍽️ Catering</option>
+            <option value="photography">📷 Photography</option>
+            <option value="music">🎵 Music</option>
+            <option value="florist">💐 Florist</option>
+            <option value="venue">🏛️ Venue</option>
+            <option value="cake">🎂 Cake</option>
+            <option value="transport">🚗 Transport</option>
+            <option value="decor">✨ Decor</option>
+            <option value="other">📦 Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Contact Person</label>
+          <input type="text" id="v-contact" class="form-input" placeholder="Contact name"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">City</label>
+          <input type="text" id="v-city" class="form-input" placeholder="Mumbai"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="tel" id="v-phone" class="form-input" placeholder="+91 9876543210"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" id="v-email" class="form-input" placeholder="vendor@email.com"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Price (₹)</label>
+          <input type="number" id="v-price" class="form-input" placeholder="50000"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Rating (1-5)</label>
+          <input type="number" id="v-rating" class="form-input" min="1" max="5" placeholder="4"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select id="v-status" class="form-input">
+            <option value="contacted">Contacted</option>
+            <option value="booked">Booked</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Linked Event</label>
+          <select id="v-event" class="form-input"><option value="">None</option></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea id="v-notes" class="form-input" rows="2" placeholder="Any notes..."></textarea>
+      </div>
+      <input type="hidden" id="v-id"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('vendor-modal-overlay')">Cancel</button>
+      <button class="btn btn-gold" onclick="saveVendor()">Save Vendor</button>
+    </div>
+  </div>
+</div>
+
+<!-- Checklist Modal -->
+<div class="modal-overlay" id="checklist-modal-overlay" onclick="closeModal('checklist-modal-overlay')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title" id="checklist-modal-title">Add Task</div>
+      <button class="modal-close" onclick="closeModal('checklist-modal-overlay')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Task Title *</label>
+        <input type="text" id="t-title" class="form-input" placeholder="Confirm catering quote"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Event *</label>
+        <select id="task-event" class="form-input"></select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Due Date</label>
+          <input type="date" id="t-due" class="form-input"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select id="t-completed" class="form-input">
+            <option value="false">Pending</option>
+            <option value="true">Completed</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea id="t-notes" class="form-input" rows="3" placeholder="Add any instructions or reminders"></textarea>
+      </div>
+      <input type="hidden" id="t-id"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('checklist-modal-overlay')">Cancel</button>
+      <button class="btn btn-gold" onclick="saveChecklist()">Save Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- Budget Modal -->
+<div class="modal-overlay" id="budget-modal-overlay" onclick="closeModal('budget-modal-overlay')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title" id="budget-modal-title">Add Budget Item</div>
+      <button class="modal-close" onclick="closeModal('budget-modal-overlay')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Category *</label>
+          <input type="text" id="b-category" class="form-input" placeholder="Catering, Decor..."/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Event *</label>
+          <select id="b-event" class="form-input"></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <input type="text" id="b-desc" class="form-input" placeholder="Description..."/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Estimated (₹)</label>
+          <input type="number" id="b-estimated" class="form-input" placeholder="0"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Actual (₹)</label>
+          <input type="number" id="b-actual" class="form-input" placeholder="0"/>
+        </div>
+      </div>
+      <input type="hidden" id="b-id"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal('budget-modal-overlay')">Cancel</button>
+      <button class="btn btn-gold" onclick="saveBudget()">Save Item</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// STATE & API
+// ═══════════════════════════════════════════════════════════
+const DEFAULT_API = 'http://localhost:3000';
+const API = window.location.protocol.startsWith('http') ? window.location.origin : DEFAULT_API;
+let token = localStorage.getItem('token');
+let user = JSON.parse(localStorage.getItem('user') || 'null');
+let allEvents = [];
+
+// ── In-Memory Store (fallback when backend is unavailable) ──
+const store = {
+  users: JSON.parse(localStorage.getItem('_wd_users') || '[]'),
+  events: JSON.parse(localStorage.getItem('_wd_events') || '[]'),
+  guests: JSON.parse(localStorage.getItem('_wd_guests') || '[]'),
+  vendors: JSON.parse(localStorage.getItem('_wd_vendors') || '[]'),
+  budget: JSON.parse(localStorage.getItem('_wd_budget') || '[]'),
+  tasks: JSON.parse(localStorage.getItem('_wd_tasks') || '[]'),
+};
+function saveStore(key) { try { localStorage.setItem('_wd_' + key, JSON.stringify(store[key])); } catch(e){} }
+function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
+let useLocalMode = false;
+
+// ── Backend health check ──────────────────────────────────
+async function checkBackend() {
+  try {
+    const res = await fetch(`${API}/api/health`, { signal: AbortSignal.timeout(3000) });
+    const ct = res.headers.get('content-type') || '';
+    if (res.ok && ct.includes('application/json')) {
+      useLocalMode = false;
+      return true;
+    }
+  } catch (e) {
+    console.warn('Health check failed:', e.message);
+  }
+  useLocalMode = true;
+  console.warn('Backend unavailable — running in local storage mode');
+  return false;
+}
+
+// ── Local-mode auth ───────────────────────────────────────
+function localLogin(email, password) {
+  const u = store.users.find(u => u.email === email && u.password === password);
+  if (!u) throw new Error('Invalid credentials');
+  return { token: 'local_' + u.id, user: { id: u.id, name: u.name, email: u.email, role: u.role } };
+}
+function localRegister(name, email, password, role) {
+  if (store.users.find(u => u.email === email)) throw new Error('Email already registered');
+  const u = { id: genId(), name, email, password, role: role || 'planner' };
+  store.users.push(u); saveStore('users');
+  return { token: 'local_' + u.id, user: { id: u.id, name: u.name, email: u.email, role: u.role } };
+}
+function localUserId() { return token?.replace('local_', '') || null; }
+
+// ── Local CRUD helpers ────────────────────────────────────
+function localGet(col, filter = {}) {
+  return store[col].filter(r => Object.entries(filter).every(([k,v]) => {
+    if (typeof v === 'object' && v !== null) {
+      if (v.$regex) return new RegExp(v.$regex, v.$options || '').test(r[k] || '');
+      if (v.$gte !== undefined && r[k] < v.$gte) return false;
+      if (v.$lte !== undefined && r[k] > v.$lte) return false;
+      return true;
+    }
+    return r[k] === v;
+  }));
+}
+function localCreate(col, data) {
+  const rec = { _id: genId(), ...data, createdAt: new Date().toISOString() };
+  store[col].push(rec); saveStore(col); return rec;
+}
+function localUpdate(col, id, data) {
+  const i = store[col].findIndex(r => r._id === id);
+  if (i < 0) throw new Error('Not found');
+  store[col][i] = { ...store[col][i], ...data };
+  saveStore(col); return store[col][i];
+}
+function localDelete(col, id) {
+  const i = store[col].findIndex(r => r._id === id);
+  if (i < 0) throw new Error('Not found');
+  store[col].splice(i, 1); saveStore(col);
+}
+
+// ── API Helper (real backend + local fallback) ─────────────
+async function api(path, options = {}) {
+  // ── LOCAL MODE ──
+  if (useLocalMode) {
+    return localDispatch(path, options.method || 'GET', options.body ? JSON.parse(options.body) : null);
+  }
+  // ── REAL BACKEND ──
+  const headers = { 'Content-Type': 'application/json' };
+  if (token && !token.startsWith('local_')) headers['Authorization'] = `Bearer ${token}`;
+  try {
+    const res = await fetch(API + path, { ...options, headers: { ...headers, ...options.headers } });
+    const contentType = res.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      // Got HTML back (server error / not running) — switch to local mode
+      if (!useLocalMode) {
+        useLocalMode = true;
+        showToast('Server unavailable — using local storage mode', 'error');
+      }
+      return localDispatch(path, options.method || 'GET', options.body ? JSON.parse(options.body) : null);
+    }
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || data.errors?.[0]?.msg || 'Request failed');
+    return data;
+  } catch (e) {
+    if (e.name === 'TypeError' || e.name === 'AbortError') {
+      if (!useLocalMode) {
+        useLocalMode = true;
+        showToast('Server offline — using local storage mode', 'error');
+      }
+      return localDispatch(path, options.method || 'GET', options.body ? JSON.parse(options.body) : null);
+    }
+    throw e;
+  }
+}
+
+// ── Local dispatcher (routes API calls to in-memory store) ─
+function localDispatch(path, method, body) {
+  const uid = localUserId();
+  const seg = path.split('?')[0].split('/').filter(Boolean); // ['api','events'] etc
+  const qs = Object.fromEntries(new URLSearchParams(path.includes('?') ? path.split('?')[1] : ''));
+
+  // AUTH
+  if (seg[1] === 'auth') {
+    if (seg[2] === 'login') return localLogin(body.email, body.password);
+    if (seg[2] === 'register') return localRegister(body.name, body.email, body.password, body.role);
+    if (seg[2] === 'profile') return { user: store.users.find(u => u.id === uid) };
+  }
+
+  // HEALTH
+  if (seg[1] === 'health') return { status: 'local', db: 'local-storage' };
+
+  // EVENTS
+  if (seg[1] === 'events') {
+    if (!seg[2]) {
+      if (method === 'GET') return localGet('events', { userId: uid });
+      if (method === 'POST') return localCreate('events', { ...body, userId: uid });
+    } else {
+      const id = seg[2];
+      if (method === 'GET') { const e = store.events.find(e => e._id === id); if (!e) throw new Error('Not found'); return e; }
+      if (method === 'PUT') return localUpdate('events', id, body);
+      if (method === 'DELETE') { localDelete('events', id); store.guests = store.guests.filter(g => g.eventId !== id); store.vendors = store.vendors.filter(v => v.eventId !== id); store.budget = store.budget.filter(b => b.eventId !== id); store.tasks = store.tasks.filter(t => t.eventId !== id); ['guests','vendors','budget','tasks'].forEach(saveStore); return { message: 'deleted' }; }
+    }
+  }
+
+  // GUESTS
+  if (seg[1] === 'guests') {
+    if (seg[2] === 'event') {
+      let list = localGet('guests', { eventId: seg[3], userId: uid });
+      if (qs.rsvp) list = list.filter(g => g.rsvp === qs.rsvp);
+      if (qs.search) list = list.filter(g => g.name.toLowerCase().includes(qs.search.toLowerCase()));
+      return list;
+    }
+    if (method === 'POST') return localCreate('guests', { ...body, userId: uid });
+    if (method === 'PUT') return localUpdate('guests', seg[2], body);
+    if (method === 'DELETE') { localDelete('guests', seg[2]); return { message: 'deleted' }; }
+  }
+
+  // VENDORS
+  if (seg[1] === 'vendors') {
+    if (!seg[2] || method === 'GET') {
+      let list = localGet('vendors', { userId: uid });
+      if (qs.type) list = list.filter(v => v.type === qs.type);
+      if (qs.city) list = list.filter(v => (v.city||'').toLowerCase().includes(qs.city.toLowerCase()));
+      if (qs.status) list = list.filter(v => v.status === qs.status);
+      if (qs.search) list = list.filter(v => v.name.toLowerCase().includes(qs.search.toLowerCase()));
+      if (qs.minPrice) list = list.filter(v => v.price >= Number(qs.minPrice));
+      if (qs.maxPrice) list = list.filter(v => v.price <= Number(qs.maxPrice));
+      if (method === 'GET') return list;
+    }
+    if (method === 'POST') return localCreate('vendors', { ...body, userId: uid });
+    if (method === 'PUT') return localUpdate('vendors', seg[2], body);
+    if (method === 'DELETE') { localDelete('vendors', seg[2]); return { message: 'deleted' }; }
+  }
+
+  // BUDGET
+  if (seg[1] === 'budget') {
+    if (seg[2] === 'event') return localGet('budget', { eventId: seg[3], userId: uid });
+    if (method === 'POST') return localCreate('budget', { ...body, userId: uid });
+    if (method === 'PUT') return localUpdate('budget', seg[2], body);
+    if (method === 'DELETE') { localDelete('budget', seg[2]); return { message: 'deleted' }; }
+  }
+
+  // CHECKLIST TASKS
+  if (seg[1] === 'checklists') {
+    if (seg[2] === 'event') return localGet('tasks', { eventId: seg[3], userId: uid });
+    if (seg[2] && method === 'GET') {
+      const task = store.tasks.find(t => t._id === seg[2] && t.userId === uid);
+      if (!task) throw new Error('Not found');
+      return task;
+    }
+    if (method === 'POST') return localCreate('tasks', { ...body, userId: uid });
+    if (method === 'PUT') return localUpdate('tasks', seg[2], body);
+    if (method === 'DELETE') { localDelete('tasks', seg[2]); return { message: 'deleted' }; }
+  }
+
+  throw new Error('Unknown route: ' + path);
+}
+
+// ═══════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  if (token && user) showApp();
+  else showAuth();
+
+  // Set greeting
+  const h = new Date().getHours();
+  const greet = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+  document.getElementById('dash-greeting').textContent = `${greet} ✦`;
+});
+
+function showAuth() {
+  document.getElementById('auth-page').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+}
+
+async function showApp() {
+  document.getElementById('auth-page').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  updateUserUI();
+  await checkBackend();
+  if (useLocalMode && user) seedDemoData(user.id);
+  updateUserUI(); // re-run to show correct banner
+  loadDashboard();
+  loadAllEvents();
+}
+
+function updateUserUI() {
+  if (!user) return;
+  document.getElementById('sidebar-name').textContent = user.name;
+  document.getElementById('sidebar-role').textContent = user.role;
+  document.getElementById('sidebar-avatar').textContent = user.name.charAt(0).toUpperCase();
+  // Show mode banner
+  let banner = document.getElementById('mode-banner');
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'mode-banner';
+    banner.style.cssText = 'position:fixed;top:12px;right:16px;z-index:9999;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:1px;pointer-events:none;transition:all 0.3s';
+    document.body.appendChild(banner);
+  }
+  if (useLocalMode) {
+    banner.textContent = '⚡ LOCAL MODE';
+    banner.style.background = 'rgba(201,122,138,0.2)';
+    banner.style.border = '1px solid rgba(201,122,138,0.4)';
+    banner.style.color = '#e8a0aa';
+  } else {
+    banner.textContent = '🟢 CONNECTED';
+    banner.style.background = 'rgba(122,154,138,0.2)';
+    banner.style.border = '1px solid rgba(122,154,138,0.4)';
+    banner.style.color = '#9bc4b2';
+  }
+}
+
+// Seed demo data for first-time local users
+function seedDemoData(userId) {
+  if (store.events.length > 0) return; // already has data
+  const evId = genId();
+  store.events.push({ _id: evId, userId, title: "Priya & Arjun's Wedding", type: 'wedding', date: new Date(Date.now() + 30*24*3600*1000).toISOString(), venue: 'Grand Ballroom, Taj Hotel', city: 'Mumbai', budget: 1500000, guestCount: 200, spent: 0, status: 'planning', notes: 'Dream wedding', createdAt: new Date().toISOString() });
+  const ev2Id = genId();
+  store.events.push({ _id: ev2Id, userId, title: "Riya's 30th Birthday", type: 'birthday', date: new Date(Date.now() + 60*24*3600*1000).toISOString(), venue: 'Skyline Terrace', city: 'Delhi', budget: 200000, guestCount: 60, spent: 0, status: 'planning', notes: '', createdAt: new Date().toISOString() });
+  store.guests.push({ _id: genId(), userId, eventId: evId, name: 'Sunita Sharma', email: 'sunita@example.com', phone: '9876543210', rsvp: 'confirmed', table: 'Table 1', dietary: 'Vegetarian', createdAt: new Date().toISOString() });
+  store.guests.push({ _id: genId(), userId, eventId: evId, name: 'Rahul Verma', email: 'rahul@example.com', phone: '9876543211', rsvp: 'pending', table: '', dietary: '', createdAt: new Date().toISOString() });
+  store.guests.push({ _id: genId(), userId, eventId: evId, name: 'Neha Gupta', email: 'neha@example.com', phone: '9876543212', rsvp: 'confirmed', table: 'Table 2', dietary: 'Jain', createdAt: new Date().toISOString() });
+  store.vendors.push({ _id: genId(), userId, eventId: evId, name: 'Divine Caterers', type: 'catering', contact: 'Mohan Das', city: 'Mumbai', phone: '9900112233', email: 'divine@example.com', price: 350000, rating: 5, status: 'booked', notes: '500 pax capacity', createdAt: new Date().toISOString() });
+  store.vendors.push({ _id: genId(), userId, eventId: evId, name: 'Lens & Light Studio', type: 'photography', contact: 'Anika Patel', city: 'Mumbai', phone: '9900112244', email: 'lens@example.com', price: 85000, rating: 4, status: 'confirmed', notes: 'Candid + traditional', createdAt: new Date().toISOString() });
+  store.vendors.push({ _id: genId(), userId, name: 'Royal Florists', type: 'florist', contact: 'Suresh', city: 'Delhi', phone: '9900112255', email: 'royal@example.com', price: 45000, rating: 4, status: 'contacted', notes: '', createdAt: new Date().toISOString() });
+  store.budget.push({ _id: genId(), userId, eventId: evId, category: 'Catering', description: 'Food & beverages for 200 guests', estimated: 350000, actual: 350000, paid: true, createdAt: new Date().toISOString() });
+  store.budget.push({ _id: genId(), userId, eventId: evId, category: 'Photography', description: 'Full day shoot + album', estimated: 85000, actual: 0, paid: false, createdAt: new Date().toISOString() });
+  store.budget.push({ _id: genId(), userId, eventId: evId, category: 'Decor & Flowers', description: 'Stage, tables, entrance', estimated: 120000, actual: 60000, paid: false, createdAt: new Date().toISOString() });
+  store.budget.push({ _id: genId(), userId, eventId: evId, category: 'Venue', description: 'Ballroom rental 2 days', estimated: 200000, actual: 200000, paid: true, createdAt: new Date().toISOString() });
+  store.tasks.push({ _id: genId(), userId, eventId: evId, title: 'Book florist and decor', completed: false, dueDate: new Date(Date.now() + 10*24*3600*1000).toISOString(), notes: 'Confirm centerpieces and stage design', createdAt: new Date().toISOString() });
+  store.tasks.push({ _id: genId(), userId, eventId: evId, title: 'Send guest invitations', completed: false, dueDate: new Date(Date.now() + 14*24*3600*1000).toISOString(), notes: 'Mail physical and digital invitations', createdAt: new Date().toISOString() });
+  ['events','guests','vendors','budget','tasks'].forEach(saveStore);
+}
+
+// ═══════════════════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════════════════
+function switchTab(tab) {
+  document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('register-form').style.display = tab === 'register' ? 'block' : 'none';
+  document.querySelectorAll('.auth-tab').forEach((t, i) => t.classList.toggle('active', (i === 0 && tab === 'login') || (i === 1 && tab === 'register')));
+  hideAuthError();
+}
+
+function showAuthError(msg) {
+  const el = document.getElementById('auth-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+function hideAuthError() {
+  document.getElementById('auth-error').style.display = 'none';
+}
+
+async function doLogin() {
+  hideAuthError();
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  if (!email || !password) return showAuthError('Please fill in all fields');
+  try {
+    await checkBackend();
+    let data;
+    if (useLocalMode) {
+      data = localLogin(email, password);
+    } else {
+      data = await api('/api/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+    }
+    token = data.token;
+    user = data.user;
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    showApp();
+    showToast('Welcome back, ' + user.name + '! 🌸', 'success');
+  } catch (e) {
+    showAuthError(e.message);
+  }
+}
+
+async function doRegister() {
+  hideAuthError();
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const password = document.getElementById('reg-password').value;
+  const role = document.getElementById('reg-role').value;
+  if (!name || !email || !password) return showAuthError('Please fill in all fields');
+  try {
+    await checkBackend();
+    let data;
+    if (useLocalMode) {
+      data = localRegister(name, email, password, role);
+    } else {
+      data = await api('/api/auth/register', { method: 'POST', body: JSON.stringify({ name, email, password, role }) });
+    }
+    token = data.token;
+    user = data.user;
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    showApp();
+    showToast('Account created! Welcome, ' + user.name + ' 💍', 'success');
+  } catch (e) {
+    showAuthError(e.message);
+  }
+}
+
+function doLogout() {
+  token = null; user = null;
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+  allEvents = [];
+  showAuth();
+}
+
+// ═══════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════
+function switchView(viewId, el) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + viewId)?.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (el) el.classList.add('active');
+  else document.querySelector(`[data-view="${viewId}"]`)?.classList.add('active');
+
+  if (viewId === 'dashboard') loadDashboard();
+  if (viewId === 'events') loadEvents();
+  if (viewId === 'guests') loadGuests();
+  if (viewId === 'vendors') loadVendors();
+  if (viewId === 'checklist') loadChecklists();
+  if (viewId === 'budget') loadBudget();
+}
+
+// ═══════════════════════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════════════════════
+async function loadDashboard() {
+  try {
+    const events = await api('/api/events');
+    allEvents = events;
+    document.getElementById('stat-events').textContent = events.length;
+
+    let totalGuests = 0, totalVendors = 0, totalBudget = 0;
+
+    // Compute stats
+    for (const ev of events) {
+      totalBudget += ev.budget || 0;
+    }
+
+    // Approximate guest/vendor counts from events
+    document.getElementById('stat-guests').textContent = events.reduce((s, e) => s + (e.guestCount || 0), 0);
+    document.getElementById('stat-vendors').textContent = '—';
+    document.getElementById('stat-budget').textContent = '₹' + formatNum(totalBudget);
+
+    // Render upcoming events
+    const upcoming = events.filter(e => new Date(e.date) >= new Date()).slice(0, 5);
+    const el = document.getElementById('dash-events-list');
+    if (upcoming.length === 0) {
+      el.innerHTML = `<div class="empty-state"><div class="empty-icon">📅</div><div class="empty-title">No upcoming events</div><div class="empty-desc">Create your first event to get started</div></div>`;
+      return;
+    }
+    el.innerHTML = `<div style="padding:8px 0">` + upcoming.map(e => `
+      <div style="display:flex;align-items:center;gap:16px;padding:16px 24px;border-bottom:1px solid var(--border2);cursor:pointer" onclick="document.querySelector('[data-view=events]').click()">
+        <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,rgba(201,169,110,0.2),rgba(201,169,110,0.08));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">${typeIcon(e.type)}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:15px;font-weight:500;color:var(--cream);margin-bottom:2px">${e.title}</div>
+          <div style="font-size:12px;color:var(--text3)">${e.venue} · ${e.city}</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:13px;color:var(--gold2)">${formatDate(e.date)}</div>
+          <div style="margin-top:4px">${statusBadge(e.status)}</div>
+        </div>
+      </div>`).join('') + `</div>`;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// EVENTS
+// ═══════════════════════════════════════════════════════════
+async function loadAllEvents() {
+  try {
+    allEvents = await api('/api/events');
+    populateEventDropdowns();
+  } catch(e) {}
+}
+
+async function loadEvents() {
+  const el = document.getElementById('events-grid');
+  el.innerHTML = `<div class="loading"><div class="spinner"></div> Loading...</div>`;
+  try {
+    const events = await api('/api/events');
+    allEvents = events;
+    populateEventDropdowns();
+    if (events.length === 0) {
+      el.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">💍</div><div class="empty-title">No events yet</div><div class="empty-desc">Create your first wedding or event to begin planning</div></div>`;
+      return;
+    }
+    el.innerHTML = events.map(e => `
+      <div class="event-card">
+        <div class="event-card-type">${typeIcon(e.type)} ${e.type}</div>
+        <div class="event-card-title">${e.title}</div>
+        <div class="event-card-venue">📍 ${e.venue}, ${e.city}</div>
+        <div class="event-card-meta">
+          <span>📅 ${formatDate(e.date)}</span>
+          <span>👥 ${e.guestCount || 0} guests</span>
+          <span>💰 ₹${formatNum(e.budget)}</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          ${statusBadge(e.status)}
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-outline btn-sm" onclick="editEvent('${e._id}')">✏️ Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteEvent('${e._id}')">🗑️</button>
+          </div>
+        </div>
+        <div class="event-progress-bar">
+          <div class="event-progress-fill" style="width:${Math.min(100, Math.round(e.spent / (e.budget || 1) * 100))}%"></div>
+        </div>
+      </div>`).join('');
+  } catch (e) {
+    el.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-title">Failed to load events</div></div>`;
+  }
+}
+
+function openEventModal(ev = null) {
+  const isEdit = !!ev;
+  document.getElementById('event-modal-title').textContent = isEdit ? 'Edit Event' : 'New Event';
+  document.getElementById('ev-id').value = isEdit ? ev._id : '';
+  document.getElementById('ev-title').value = isEdit ? ev.title : '';
+  document.getElementById('ev-type').value = isEdit ? ev.type : 'wedding';
+  document.getElementById('ev-date').value = isEdit ? ev.date?.split('T')[0] : '';
+  document.getElementById('ev-city').value = isEdit ? ev.city : '';
+  document.getElementById('ev-venue').value = isEdit ? ev.venue : '';
+  document.getElementById('ev-budget').value = isEdit ? ev.budget : '';
+  document.getElementById('ev-guests').value = isEdit ? ev.guestCount : '';
+  document.getElementById('ev-status').value = isEdit ? ev.status : 'planning';
+  document.getElementById('ev-notes').value = isEdit ? ev.notes : '';
+  openModal('event-modal-overlay');
+}
+
+async function editEvent(id) {
+  const ev = allEvents.find(e => e._id === id) || await api(`/api/events/${id}`);
+  openEventModal(ev);
+}
+
+async function saveEvent() {
+  const id = document.getElementById('ev-id').value;
+  const body = {
+    title: document.getElementById('ev-title').value.trim(),
+    type: document.getElementById('ev-type').value,
+    date: document.getElementById('ev-date').value,
+    city: document.getElementById('ev-city').value.trim(),
+    venue: document.getElementById('ev-venue').value.trim(),
+    budget: Number(document.getElementById('ev-budget').value) || 0,
+    guestCount: Number(document.getElementById('ev-guests').value) || 0,
+    status: document.getElementById('ev-status').value,
+    notes: document.getElementById('ev-notes').value.trim()
+  };
+  if (!body.title || !body.date || !body.venue || !body.city) return showToast('Please fill required fields', 'error');
+  try {
+    if (id) await api(`/api/events/${id}`, { method: 'PUT', body: JSON.stringify(body) });
+    else await api('/api/events', { method: 'POST', body: JSON.stringify(body) });
+    closeModal('event-modal-overlay');
+    showToast(id ? 'Event updated ✦' : 'Event created! 💍', 'success');
+    await loadAllEvents();
+    loadEvents();
+    loadDashboard();
+  } catch (e) { showToast(e.message, 'error'); }
+}
+
+async function deleteEvent(id) {
+  if (!confirm('Delete this event and all associated data?')) return;
+  try {
+    await api(`/api/events/${id}`, { method: 'DELETE' });
+    showToast('Event deleted', 'success');
+    await loadAllEvents();
+    loadEvents();
+    loadDashboard();
+  } catch (e) { showToast(e.message, 'error'); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// GUESTS
+// ═══════════════════════════════════════════════════════════
+async function loadGuests() {
+  const tbody = document.getElementById('guests-tbody');
+  const eventId = document.getElementById('guest-event-filter').value;
+  const rsvp = document.getElementById('guest-rsvp-filter').value;
+  const search = document.getElementById('guest-search').value;
+
+  if (!eventId) {
+    // Load all guests across events
+    tbody.innerHTML = `<tr><td colspan="7"><div class="loading"><div class="spinner"></div> Loading...</div></td></tr>`;
+    try {
+      let allGuests = [];
+      for (const ev of allEvents) {
+        let q = `/api/guests/event/${ev._id}?`;
+        if (rsvp) q += `rsvp=${rsvp}&`;
+        if (search) q += `search=${encodeURIComponent(search)}&`;
+        const guests = await api(q);
+        allGuests = allGuests.concat(guests.map(g => ({ ...g, _eventTitle: ev.title })));
+      }
+      renderGuestsTable(allGuests);
+    } catch(e) { tbody.innerHTML = `<tr><td colspan="7">Failed to load</td></tr>`; }
+    return;
+  }
+
+  tbody.innerHTML = `<tr><td colspan="7"><div class="loading"><div class="spinner"></div> Loading...</div></td></tr>`;
+  try {
+    let q = `/api/guests/event/${eventId}?`;
+    if (rsvp) q += `rsvp=${rsvp}&`;
+    if (search) q += `search=${encodeURIComponent(search)}&`;
+    const guests = await api(q);
+    const ev = allEvents.find(e => e._id === eventId);
+    renderGuestsTable(guests.map(g => ({ ...g, _eventTitle: ev?.title || '' })));
+  } catch(e) { tbody.innerHTML = `<tr><td colspan="7">Failed to load</td></tr>`; }
+}
+
+function renderGuestsTable(guests) {
+  const tbody = document.getElementById('guests-tbody');
+  if (guests.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">👥</div><div class="empty-title">No guests found</div></div></td></tr>`;
+    return;
+  }
+  const rsvpBadge = (r) => {
+    const map = { confirmed:'badge-green', pending:'badge-gold', declined:'badge-rose', maybe:'badge-gray' };
+    return `<span class="badge ${map[r]||'badge-gray'}">${r}</span>`;
+  };
+  tbody.innerHTML = guests.map(g => `
+    <tr>
+      <td><strong style="color:var(--cream)">${g.name}</strong></td>
+      <td><span style="color:var(--text3);font-size:12px">${g._eventTitle}</span></td>
+      <td>${rsvpBadge(g.rsvp)}</td>
+      <td style="color:var(--text2)">${g.email || '—'}</td>
+      <td style="color:var(--text2)">${g.phone || '—'}</td>
+      <td style="color:var(--text2)">${g.table || '—'}</td>
+      <td>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-outline btn-sm" onclick="editGuest('${g._id}')">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteGuest('${g._id}')">🗑️</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function openGuestModal(g = null) {
+  const isEdit = !!g;
+  document.getElementById('guest-modal-title').textContent = isEdit ? 'Edit Guest' : 'Add Guest';
+  document.getElementById('g-id').value = isEdit ? g._id : '';
+  document.getElementById('g-name').value = isEdit ? g.name : '';
+  document.getElementById('g-email').value = isEdit ? g.email : '';
+  document.getElementById('g-phone').value = isEdit ? g.phone : '';
+  document.getElementById('g-rsvp').value = isEdit ? g.rsvp : 'pending';
+  document.getElementById('g-table').value = isEdit ? g.table : '';
+  document.getElementById('g-dietary').value = isEdit ? g.dietary : '';
+  const sel = document.getElementById('g-event');
+  if (isEdit && g.eventId) sel.value = g.eventId;
+  openModal('guest-modal-overlay');
+}
+
+async function editGuest(id) {
+  try {
+    const guests = document.querySelectorAll('#guests-tbody tr');
+    openGuestModal({ _id: id });
+  } catch(e) {}
+}
+
+async function saveGuest() {
+  const id = document.getElementById('g-id').value;
+  const body = {
+    name: document.getElementById('g-name').value.trim(),
+    eventId: document.getElementById('g-event').value,
+    email: document.getElementById('g-email').value.trim(),
+    phone: document.getElementById('g-phone').value.trim(),
+    rsvp: document.getElementById('g-rsvp').value,
+    table: document.getElementById('g-table').value.trim(),
+    dietary: document.getElementById('g-dietary').value.trim()
+  };
+  if (!body.name || !body.eventId) return showToast('Name and event are required', 'error');
+  try {
+    if (id) await api(`/api/guests/${id}`, { method: 'PUT', body: JSON.stringify(body) });
+    else await api('/api/guests', { method: 'POST', body: JSON.stringify(body) });
+    closeModal('guest-modal-overlay');
+    showToast(id ? 'Guest updated' : 'Guest added! 👤', 'success');
+    loadGuests();
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+async function deleteGuest(id) {
+  if (!confirm('Remove this guest?')) return;
+  try {
+    await api(`/api/guests/${id}`, { method: 'DELETE' });
+    showToast('Guest removed', 'success');
+    loadGuests();
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// VENDORS
+// ═══════════════════════════════════════════════════════════
+const vendorIcons = {
+  catering:'🍽️', photography:'📷', music:'🎵', florist:'💐',
+  venue:'🏛️', cake:'🎂', transport:'🚗', decor:'✨', other:'📦'
+};
+
+async function loadVendors() {
+  const el = document.getElementById('vendors-grid');
+  el.innerHTML = `<div class="loading"><div class="spinner"></div> Loading...</div>`;
+  try {
+    let q = '/api/vendors?';
+    const type = document.getElementById('vendor-type-filter').value;
+    const city = document.getElementById('vendor-city-filter').value;
+    const minP = document.getElementById('vendor-min-price').value;
+    const maxP = document.getElementById('vendor-max-price').value;
+    const status = document.getElementById('vendor-status-filter').value;
+    const search = document.getElementById('vendor-search').value;
+    if (type) q += `type=${type}&`;
+    if (city) q += `city=${encodeURIComponent(city)}&`;
+    if (minP) q += `minPrice=${minP}&`;
+    if (maxP) q += `maxPrice=${maxP}&`;
+    if (status) q += `status=${status}&`;
+    if (search) q += `search=${encodeURIComponent(search)}&`;
+    const vendors = await api(q);
+    document.getElementById('stat-vendors').textContent = vendors.length;
+    if (vendors.length === 0) {
+      el.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🏢</div><div class="empty-title">No vendors found</div><div class="empty-desc">Add your first vendor or adjust filters</div></div>`;
+      return;
+    }
+    const statusBadgeV = (s) => {
+      const map = { contacted:'badge-gray', booked:'badge-gold', confirmed:'badge-green', cancelled:'badge-rose' };
+      return `<span class="badge ${map[s]||'badge-gray'}">${s}</span>`;
+    };
+    el.innerHTML = vendors.map(v => `
+      <div class="vendor-card">
+        <div class="vendor-type-icon">${vendorIcons[v.type] || '📦'}</div>
+        <div class="vendor-name">${v.name}</div>
+        <div class="vendor-type">${v.type}</div>
+        ${v.city ? `<div class="vendor-detail">📍 ${v.city}</div>` : ''}
+        ${v.contact ? `<div class="vendor-detail">👤 ${v.contact}</div>` : ''}
+        ${v.phone ? `<div class="vendor-detail">📞 ${v.phone}</div>` : ''}
+        <div class="vendor-price">₹${formatNum(v.price)}</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          ${statusBadgeV(v.status)}
+          <div class="stars">${'★'.repeat(Math.max(1, Math.min(5, v.rating || 3)))}</div>
+        </div>
+        <div class="vendor-actions">
+          <button class="btn btn-outline btn-sm" style="flex:1" onclick="editVendor('${v._id}')">✏️ Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteVendor('${v._id}')">🗑️</button>
+        </div>
+      </div>`).join('');
+  } catch(e) { el.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-title">Failed to load</div></div>`; }
+}
+
+function openVendorModal(v = null) {
+  const isEdit = !!v;
+  document.getElementById('vendor-modal-title').textContent = isEdit ? 'Edit Vendor' : 'Add Vendor';
+  document.getElementById('v-id').value = isEdit ? v._id : '';
+  document.getElementById('v-name').value = isEdit ? v.name : '';
+  document.getElementById('v-type').value = isEdit ? v.type : 'catering';
+  document.getElementById('v-contact').value = isEdit ? v.contact : '';
+  document.getElementById('v-city').value = isEdit ? v.city : '';
+  document.getElementById('v-phone').value = isEdit ? v.phone : '';
+  document.getElementById('v-email').value = isEdit ? v.email : '';
+  document.getElementById('v-price').value = isEdit ? v.price : '';
+  document.getElementById('v-rating').value = isEdit ? v.rating : '4';
+  document.getElementById('v-status').value = isEdit ? v.status : 'contacted';
+  document.getElementById('v-notes').value = isEdit ? v.notes : '';
+  if (isEdit && v.eventId) document.getElementById('v-event').value = v.eventId;
+  openModal('vendor-modal-overlay');
+}
+
+async function editVendor(id) {
+  try {
+    const v = await api(`/api/vendors/${id}`) || {};
+    openVendorModal(v);
+  } catch(e) { openVendorModal({ _id: id }); }
+}
+
+async function saveVendor() {
+  const id = document.getElementById('v-id').value;
+  const body = {
+    name: document.getElementById('v-name').value.trim(),
+    type: document.getElementById('v-type').value,
+    contact: document.getElementById('v-contact').value.trim(),
+    city: document.getElementById('v-city').value.trim(),
+    phone: document.getElementById('v-phone').value.trim(),
+    email: document.getElementById('v-email').value.trim(),
+    price: Number(document.getElementById('v-price').value) || 0,
+    rating: Number(document.getElementById('v-rating').value) || 3,
+    status: document.getElementById('v-status').value,
+    notes: document.getElementById('v-notes').value.trim(),
+    eventId: document.getElementById('v-event').value || undefined
+  };
+  if (!body.name) return showToast('Vendor name is required', 'error');
+  try {
+    if (id) await api(`/api/vendors/${id}`, { method: 'PUT', body: JSON.stringify(body) });
+    else await api('/api/vendors', { method: 'POST', body: JSON.stringify(body) });
+    closeModal('vendor-modal-overlay');
+    showToast(id ? 'Vendor updated' : 'Vendor added! 🏢', 'success');
+    loadVendors();
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+async function deleteVendor(id) {
+  if (!confirm('Remove this vendor?')) return;
+  try {
+    await api(`/api/vendors/${id}`, { method: 'DELETE' });
+    showToast('Vendor removed', 'success');
+    loadVendors();
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// BUDGET
+// ═══════════════════════════════════════════════════════════
+async function loadBudget() {
+  const eventId = document.getElementById('budget-event-filter').value;
+  if (!eventId) return;
+
+  const tbody = document.getElementById('budget-tbody');
+  tbody.innerHTML = `<tr><td colspan="6"><div class="loading"><div class="spinner"></div> Loading...</div></td></tr>`;
+  try {
+    const [items, ev] = await Promise.all([
+      api(`/api/budget/event/${eventId}`),
+      api(`/api/events/${eventId}`)
+    ]);
+    const totalEst = items.reduce((s, i) => s + i.estimated, 0);
+    const totalAct = items.reduce((s, i) => s + i.actual, 0);
+    document.getElementById('bstat-total').textContent = '₹' + formatNum(ev.budget || totalEst);
+    document.getElementById('bstat-spent').textContent = '₹' + formatNum(totalAct);
+    document.getElementById('bstat-remaining').textContent = '₹' + formatNum((ev.budget || totalEst) - totalAct);
+
+    if (items.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">💰</div><div class="empty-title">No budget items</div><div class="empty-desc">Add your first budget item</div></div></td></tr>`;
+      return;
+    }
+    tbody.innerHTML = items.map(i => `
+      <tr>
+        <td><strong style="color:var(--cream)">${i.category}</strong></td>
+        <td style="color:var(--text2)">${i.description || '—'}</td>
+        <td style="color:var(--text)">₹${formatNum(i.estimated)}</td>
+        <td style="color:${i.actual > i.estimated ? '#e8a0aa' : 'var(--sage)'}">₹${formatNum(i.actual)}</td>
+        <td><span class="badge ${i.paid ? 'badge-green' : 'badge-gray'}">${i.paid ? '✅ Paid' : '⏳ Pending'}</span></td>
+        <td>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-outline btn-sm" onclick="editBudget('${i._id}')">✏️</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteBudget('${i._id}')">🗑️</button>
+          </div>
+        </td>
+      </tr>`).join('');
+  } catch(e) { tbody.innerHTML = `<tr><td colspan="6">Failed to load budget items</td></tr>`; }
+}
+
+function openBudgetModal(b = null) {
+  const isEdit = !!b;
+  document.getElementById('budget-modal-title').textContent = isEdit ? 'Edit Budget Item' : 'Add Budget Item';
+  document.getElementById('b-id').value = isEdit ? b._id : '';
+  document.getElementById('b-category').value = isEdit ? b.category : '';
+  document.getElementById('b-desc').value = isEdit ? b.description : '';
+  document.getElementById('b-estimated').value = isEdit ? b.estimated : '';
+  document.getElementById('b-actual').value = isEdit ? b.actual : '0';
+  const sel = document.getElementById('b-event');
+  const currentEvent = document.getElementById('budget-event-filter').value;
+  if (currentEvent) sel.value = currentEvent;
+  if (isEdit && b.eventId) sel.value = b.eventId;
+  openModal('budget-modal-overlay');
+}
+
+async function editBudget(id) {
+  openBudgetModal({ _id: id });
+}
+
+async function saveBudget() {
+  const id = document.getElementById('b-id').value;
+  const body = {
+    category: document.getElementById('b-category').value.trim(),
+    eventId: document.getElementById('b-event').value,
+    description: document.getElementById('b-desc').value.trim(),
+    estimated: Number(document.getElementById('b-estimated').value) || 0,
+    actual: Number(document.getElementById('b-actual').value) || 0
+  };
+  if (!body.category || !body.eventId) return showToast('Category and event are required', 'error');
+  try {
+    if (id) await api(`/api/budget/${id}`, { method: 'PUT', body: JSON.stringify(body) });
+    else await api('/api/budget', { method: 'POST', body: JSON.stringify(body) });
+    closeModal('budget-modal-overlay');
+    showToast(id ? 'Item updated' : 'Budget item added! 💰', 'success');
+    loadBudget();
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+async function deleteBudget(id) {
+  if (!confirm('Remove this budget item?')) return;
+  try {
+    await api(`/api/budget/${id}`, { method: 'DELETE' });
+    showToast('Item removed', 'success');
+    loadBudget();
+  } catch(e) { showToast(e.message, 'error'); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// CHECKLIST
+// ═══════════════════════════════════════════════════════════
+async function loadChecklists() {
+  const tbody = document.getElementById('checklist-tbody');
+  const eventId = document.getElementById('checklist-event-filter').value;
+  const status = document.getElementById('checklist-status-filter').value;
+  const search = document.getElementById('checklist-search').value.trim().toLowerCase();
+
+  tbody.innerHTML = `<tr><td colspan="5"><div class="loading"><div class="spinner"></div> Loading tasks...</div></td></tr>`;
+  try {
+    let tasks = [];
+    if (eventId) {
+      tasks = await api(`/api/checklists/event/${eventId}`);
+      const ev = allEvents.find(e => e._id === eventId);
+      tasks = tasks.map(t => ({ ...t, _eventTitle: ev ? ev.title : '' }));
+    } else {
+      for (const ev of allEvents) {
+        const list = await api(`/api/checklists/event/${ev._id}`);
+        tasks = tasks.concat(list.map(t => ({ ...t, _eventTitle: ev.title })));
+      }
+    }
+
+    if (status) {
+      tasks = tasks.filter(t => (status === 'completed') === Boolean(t.completed));
+    }
+    if (search) {
+      tasks = tasks.filter(t => t.title.toLowerCase().includes(search) || (t._eventTitle || '').toLowerCase().includes(search) || (t.notes || '').toLowerCase().includes(search));
+    }
+
+    renderChecklistTable(tasks);
+  } catch (e) {
+    tbody.innerHTML = `<tr><td colspan="5">Failed to load checklist tasks</td></tr>`;
+  }
+}
+
+function renderChecklistTable(tasks) {
+  const tbody = document.getElementById('checklist-tbody');
+  if (!tasks || tasks.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">✅</div><div class="empty-title">No tasks found</div><div class="empty-desc">Add a task to start your checklist</div></div></td></tr>`;
+    return;
+  }
+
+  const badge = (done) => `<span class="badge ${done ? 'badge-green' : 'badge-gold'}">${done ? 'Completed' : 'Pending'}</span>`;
+  tbody.innerHTML = tasks.map(t => `
+    <tr>
+      <td><strong style="color:var(--cream)">${t.title}</strong><div style="color:var(--text2);font-size:12px;margin-top:6px">${t.notes || 'No additional notes'}</div></td>
+      <td style="color:var(--text3)">${t._eventTitle || '—'}</td>
+      <td style="color:var(--text2)">${t.dueDate ? formatDate(t.dueDate) : 'No due date'}</td>
+      <td>${badge(t.completed)}</td>
+      <td>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-outline btn-sm" onclick="toggleChecklistCompleted('${t._id}', ${t.completed})">${t.completed ? '↺' : '✔️'}</button>
+          <button class="btn btn-outline btn-sm" onclick="editChecklist('${t._id}')">✏️</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteChecklist('${t._id}')">🗑️</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function openChecklistModal(task = null) {
+  const isEdit = !!task;
+  document.getElementById('checklist-modal-title').textContent = isEdit ? 'Edit Task' : 'Add Task';
+  document.getElementById('t-id').value = isEdit ? task._id : '';
+  document.getElementById('t-title').value = isEdit ? task.title : '';
+  document.getElementById('t-notes').value = isEdit ? task.notes : '';
+  document.getElementById('t-due').value = isEdit && task.dueDate ? task.dueDate.split('T')[0] : '';
+  document.getElementById('t-completed').value = isEdit && task.completed ? 'true' : 'false';
+  const eventSelect = document.getElementById('task-event');
+  if (task && task.eventId) eventSelect.value = task.eventId;
+  else if (!task && document.getElementById('checklist-event-filter').value) {
+    eventSelect.value = document.getElementById('checklist-event-filter').value;
+  }
+  openModal('checklist-modal-overlay');
+}
+
+async function editChecklist(id) {
+  try {
+    const task = await api(`/api/checklists/${id}`);
+    openChecklistModal(task);
+  } catch (e) {
+    showToast(e.message, 'error');
+  }
+}
+
+async function saveChecklist() {
+  const id = document.getElementById('t-id').value;
+  const body = {
+    title: document.getElementById('t-title').value.trim(),
+    eventId: document.getElementById('task-event').value,
+    dueDate: document.getElementById('t-due').value || undefined,
+    notes: document.getElementById('t-notes').value.trim(),
+    completed: document.getElementById('t-completed').value === 'true'
+  };
+  if (!body.title || !body.eventId) return showToast('Task title and event are required', 'error');
+  try {
+    if (id) await api(`/api/checklists/${id}`, { method: 'PUT', body: JSON.stringify(body) });
+    else await api('/api/checklists', { method: 'POST', body: JSON.stringify(body) });
+    closeModal('checklist-modal-overlay');
+    showToast(id ? 'Task updated' : 'Task added! ✅', 'success');
+    loadChecklists();
+  } catch (e) {
+    showToast(e.message, 'error');
+  }
+}
+
+async function deleteChecklist(id) {
+  if (!confirm('Delete this task?')) return;
+  try {
+    await api(`/api/checklists/${id}`, { method: 'DELETE' });
+    showToast('Task deleted', 'success');
+    loadChecklists();
+  } catch (e) {
+    showToast(e.message, 'error');
+  }
+}
+
+async function toggleChecklistCompleted(id, current) {
+  try {
+    await api(`/api/checklists/${id}`, { method: 'PUT', body: JSON.stringify({ completed: !current }) });
+    loadChecklists();
+  } catch (e) {
+    showToast(e.message, 'error');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════
+function populateEventDropdowns() {
+  ['guest-event-filter','g-event','v-event','b-event','budget-event-filter','checklist-event-filter','task-event'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    const hasAll = id === 'guest-event-filter' || id === 'checklist-event-filter';
+    const hasNone = id === 'v-event';
+    const prev = sel.value;
+    sel.innerHTML = (hasAll ? '<option value="">All Events</option>' : '') +
+                    (hasNone ? '<option value="">None</option>' : (!hasAll ? '<option value="">Select Event</option>' : '')) +
+                    allEvents.map(e => `<option value="${e._id}">${e.title}</option>`).join('');
+    if (prev) sel.value = prev;
+  });
+}
+
+function formatDate(d) {
+  return new Date(d).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function formatNum(n) {
+  if (!n && n !== 0) return '0';
+  if (n >= 100000) return (n/100000).toFixed(1) + 'L';
+  if (n >= 1000) return (n/1000).toFixed(0) + 'k';
+  return n.toString();
+}
+
+function typeIcon(t) {
+  return { wedding:'💍', birthday:'🎂', corporate:'💼', anniversary:'💕', other:'📌' }[t] || '📅';
+}
+
+function statusBadge(s) {
+  const map = {
+    planning: 'badge-gold', confirmed: 'badge-green', completed: 'badge-cream', cancelled: 'badge-rose'
+  };
+  return `<span class="badge ${map[s] || 'badge-gray'}">${s}</span>`;
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function showToast(msg, type = 'success') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<span>${type === 'success' ? '✦' : '⚠️'}</span> ${msg}`;
+  container.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(20px)'; toast.style.transition = 'all 0.3s'; setTimeout(() => toast.remove(), 300); }, 3000);
+}
+
+// Keyboard support
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+  if (e.key === 'Enter' && document.getElementById('auth-page').style.display !== 'none') {
+    const loginVisible = document.getElementById('login-form').style.display !== 'none';
+    if (loginVisible) doLogin(); else doRegister();
+  }
+});
+</script>
+</body>
+</html>
