@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const cors = require('cors');
 const path = require('path');
 const zlib = require('zlib');
@@ -27,6 +28,10 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'wedding_session_secret',
   resave: false,
   saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: MONGO_URI,
+    collectionName: 'sessions'
+  }),
   cookie: { secure: false, maxAge: 7 * 24 * 60 * 60 * 1000 }
 }));
 
