@@ -814,6 +814,35 @@ select.filter-input option { background: var(--bg3); }
 .rsvp-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; margin-top: 8px; }
 .rsvp-bar-seg { border-radius: 4px; transition: width 0.4s ease; }
 
+/* ──────────────── MOBILE MENU ──────────────── */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--cream);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+  margin-right: 12px;
+}
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 90;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.sidebar-overlay.open {
+  display: block;
+  opacity: 1;
+}
+@media (max-width: 768px) {
+  .mobile-menu-btn { display: inline-block; }
+  .sidebar.open { box-shadow: 4px 0 24px rgba(0,0,0,0.5); }
+}
+
 </style>
 </head>
 <body>
@@ -886,6 +915,7 @@ select.filter-input option { background: var(--bg3); }
 
 <!-- ════════════════ MAIN APP ════════════════ -->
 <div id="app">
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-logo">
@@ -935,9 +965,12 @@ select.filter-input option { background: var(--bg3); }
     <!-- ── DASHBOARD ── -->
     <div id="view-dashboard" class="view active">
       <div class="page-header">
-        <div>
-          <div class="page-title" id="dash-greeting">Good morning ✦</div>
-          <div class="page-subtitle">Here's your planning overview</div>
+        <div style="display: flex; align-items: center;">
+          <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+          <div>
+            <div class="page-title" id="dash-greeting">Good morning ✦</div>
+            <div class="page-subtitle">Here's your planning overview</div>
+          </div>
         </div>
         <button class="btn btn-gold" onclick="switchView('events'); document.querySelector('[data-view=events]').click(); openEventModal()">
           ✦ New Event
@@ -982,9 +1015,12 @@ select.filter-input option { background: var(--bg3); }
     <!-- ── EVENTS ── -->
     <div id="view-events" class="view">
       <div class="page-header">
-        <div>
-          <div class="page-title">Events</div>
-          <div class="page-subtitle">Manage all your weddings &amp; events</div>
+        <div style="display: flex; align-items: center;">
+          <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+          <div>
+            <div class="page-title">Events</div>
+            <div class="page-subtitle">Manage all your weddings &amp; events</div>
+          </div>
         </div>
         <button class="btn btn-gold" onclick="openEventModal()">＋ New Event</button>
       </div>
@@ -998,9 +1034,12 @@ select.filter-input option { background: var(--bg3); }
     <!-- ── GUESTS ── -->
     <div id="view-guests" class="view">
       <div class="page-header">
-        <div>
-          <div class="page-title">Guest List</div>
-          <div class="page-subtitle">Manage RSVPs and seating</div>
+        <div style="display: flex; align-items: center;">
+          <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+          <div>
+            <div class="page-title">Guest List</div>
+            <div class="page-subtitle">Manage RSVPs and seating</div>
+          </div>
         </div>
         <button class="btn btn-gold" onclick="openGuestModal()">＋ Add Guest</button>
       </div>
@@ -1040,9 +1079,12 @@ select.filter-input option { background: var(--bg3); }
     <!-- ── VENDORS ── -->
     <div id="view-vendors" class="view">
       <div class="page-header">
-        <div>
-          <div class="page-title">Vendors</div>
-          <div class="page-subtitle">Find and manage your event vendors</div>
+        <div style="display: flex; align-items: center;">
+          <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+          <div>
+            <div class="page-title">Vendors</div>
+            <div class="page-subtitle">Find and manage your event vendors</div>
+          </div>
         </div>
         <button class="btn btn-gold" onclick="openVendorModal()">＋ Add Vendor</button>
       </div>
@@ -1081,9 +1123,12 @@ select.filter-input option { background: var(--bg3); }
     <!-- ── CHECKLIST ── -->
     <div id="view-checklist" class="view">
       <div class="page-header">
-        <div>
-          <div class="page-title">Checklist</div>
-          <div class="page-subtitle">Track tasks for each event</div>
+        <div style="display: flex; align-items: center;">
+          <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+          <div>
+            <div class="page-title">Checklist</div>
+            <div class="page-subtitle">Track tasks for each event</div>
+          </div>
         </div>
         <button class="btn btn-gold" onclick="openChecklistModal()">＋ Add Task</button>
       </div>
@@ -1119,9 +1164,12 @@ select.filter-input option { background: var(--bg3); }
     <!-- ── BUDGET ── -->
     <div id="view-budget" class="view">
       <div class="page-header">
-        <div>
-          <div class="page-title">Budget Tracker</div>
-          <div class="page-subtitle">Track estimated vs actual spending</div>
+        <div style="display: flex; align-items: center;">
+          <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+          <div>
+            <div class="page-title">Budget Tracker</div>
+            <div class="page-subtitle">Track estimated vs actual spending</div>
+          </div>
         </div>
         <button class="btn btn-gold" onclick="openBudgetModal()">＋ Add Item</button>
       </div>
@@ -1852,12 +1900,31 @@ function doLogout() {
 // ═══════════════════════════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════════════════════════
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (sidebar.classList.contains('open')) {
+    sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  } else {
+    sidebar.classList.add('open');
+    if (overlay) overlay.classList.add('open');
+  }
+}
+
 function switchView(viewId, el) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + viewId)?.classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   if (el) el.classList.add('active');
   else document.querySelector(`[data-view="${viewId}"]`)?.classList.add('active');
+
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  if (sidebar && sidebar.classList.contains('open')) {
+    sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('open');
+  }
 
   if (viewId === 'dashboard') loadDashboard();
   if (viewId === 'events') loadEvents();
